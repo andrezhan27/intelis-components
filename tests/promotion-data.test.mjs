@@ -4,7 +4,6 @@ import test from "node:test";
 import {
   fetchActivePromotion,
   normalizeActivePromotion,
-  promotionCacheTag,
 } from "../dist/promotion-banner/data.js";
 import { isSafePromotionUrl } from "../dist/promotion-banner/safe-url.js";
 
@@ -63,7 +62,7 @@ test("drops a malformed link without dropping safe banner text", () => {
   );
 });
 
-test("fetches the read-only RPC with restaurant-specific caching", async () => {
+test("fetches the read-only RPC without caching", async () => {
   let capturedUrl;
   let capturedInit;
   const promotion = await fetchActivePromotion(" restaurant-a ", {
@@ -80,8 +79,8 @@ test("fetches the read-only RPC with restaurant-specific caching", async () => {
   assert.equal(promotion?.id, validRow.id);
   assert.match(capturedUrl, /get_active_restaurant_promotion/);
   assert.match(capturedUrl, /p_restaurant_id=restaurant-a/);
-  assert.equal(capturedInit.next.revalidate, 90);
-  assert.deepEqual(capturedInit.next.tags, [promotionCacheTag("restaurant-a")]);
+  assert.equal(capturedInit.cache, "no-store");
+  assert.equal(capturedInit.next, undefined);
 });
 
 test("fails closed when the RPC is unavailable or malformed", async () => {

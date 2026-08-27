@@ -57,6 +57,7 @@
     "url": "git+https://github.com/andrezhan27/intelis-components.git"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
   }
 }

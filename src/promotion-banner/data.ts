@@ -15,13 +15,6 @@ type RpcPromotionRow = {
   variant?: unknown;
 };
 
-type NextFetchInit = RequestInit & {
-  next?: {
-    revalidate?: number;
-    tags?: string[];
-  };
-};
-
 const uuidPattern =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
@@ -32,6 +25,7 @@ function isPromotionVariant(value: unknown): value is PromotionVariant {
   );
 }
 
+/** @deprecated Promotion requests are no longer cached. */
 export function promotionCacheTag(restaurantId: string): string {
   return `promotion:${restaurantId.trim().slice(0, 220)}`;
 }
@@ -89,21 +83,17 @@ export async function fetchActivePromotion(
 
   if (!supabaseUrl || !publishableKey) return null;
 
-  const revalidate = Math.max(1, options.revalidateSeconds ?? 120);
   const requestUrl = new URL(
     `${supabaseUrl}/rest/v1/rpc/get_active_restaurant_promotion`,
   );
   requestUrl.searchParams.set("p_restaurant_id", normalizedRestaurantId);
 
-  const requestInit: NextFetchInit = {
+  const requestInit: RequestInit = {
+    cache: "no-store",
     headers: {
       apikey: publishableKey,
       Authorization: `Bearer ${publishableKey}`,
       Accept: "application/json",
-    },
-    next: {
-      revalidate,
-      tags: [promotionCacheTag(normalizedRestaurantId)],
     },
   };
 

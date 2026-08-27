@@ -2,8 +2,9 @@
 
 Shared native React/Next.js UI for Intelis restaurant websites. The promotion
 banner calls the narrow Supabase `get_active_restaurant_promotion` RPC on the
-server, caches the result for two minutes, renders nothing on failure, and only
-hydrates the dismissible interaction.
+server without caching, renders nothing on failure, and only hydrates the
+dismissible interaction. Promotion changes are visible on the next website
+request or navigation.
 
 ## Restaurant website
 
@@ -43,5 +44,5 @@ import { PromotionManager } from "@intelis/restaurant-ui/dashboard";
 <PromotionManager supabase={supabase} restaurantId={restaurantId} />
 ```
 
-Saving propagates through the website cache within 120 seconds. Consumers may
-pass `onSaved` to trigger any deployment-specific tag invalidation webhook.
+Saving is reflected on the next website request or navigation. Consumers may
+pass `onSaved` to run deployment-specific follow-up work.

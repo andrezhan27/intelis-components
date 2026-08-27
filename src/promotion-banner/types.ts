@@ -28,6 +28,7 @@ export type PromotionBannerStyle = CSSProperties & {
 export type PromotionFetchOptions = {
   supabaseUrl?: string;
   supabasePublishableKey?: string;
+  /** @deprecated Promotion requests always use `cache: "no-store"`. */
   revalidateSeconds?: number;
   fetchImplementation?: typeof fetch;
   logger?: Pick<Console, "error">;
