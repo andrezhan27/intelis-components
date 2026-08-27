@@ -1,0 +1,210 @@
+.manager {
+  display: grid;
+  grid-template-columns: minmax(13rem, 0.75fr) minmax(0, 1.5fr);
+  gap: 1.5rem;
+  color: #1c1b1b;
+  font: inherit;
+}
+
+.history,
+.form {
+  min-width: 0;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.sectionHeader h2 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.sectionHeader p,
+.muted,
+.hint {
+  margin: 0.25rem 0 0;
+  color: #64646a;
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.sectionHeader button,
+.historyItem,
+.actions button {
+  border: 0;
+  border-radius: 0.65rem;
+  cursor: pointer;
+  font: inherit;
+}
+
+.sectionHeader button {
+  flex: 0 0 auto;
+  background: #e8e8ed;
+  padding: 0.6rem 0.75rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.list {
+  display: grid;
+  gap: 0.5rem;
+  max-height: 32rem;
+  overflow: auto;
+}
+
+.historyItem {
+  display: grid;
+  gap: 0.25rem;
+  width: 100%;
+  background: #f5f5f7;
+  padding: 0.75rem;
+  text-align: left;
+}
+
+.historyItem[aria-pressed="true"] {
+  background: #1d1d1f;
+  color: #ffffff;
+}
+
+.historyItem span {
+  overflow: hidden;
+  font-size: 0.85rem;
+  font-weight: 650;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.historyItem small {
+  color: inherit;
+  opacity: 0.72;
+}
+
+.form {
+  display: grid;
+  gap: 1rem;
+}
+
+.toggleRow,
+.twoColumns,
+.actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.toggleRow label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.twoColumns > * {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.field {
+  display: grid;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  border: 1px solid #d0d0d5;
+  border-radius: 0.65rem;
+  background: #ffffff;
+  color: #1c1b1b;
+  padding: 0.7rem 0.75rem;
+  font: inherit;
+  font-weight: 500;
+}
+
+.field textarea {
+  resize: vertical;
+}
+
+.field input:focus-visible,
+.field select:focus-visible,
+.field textarea:focus-visible,
+.sectionHeader button:focus-visible,
+.historyItem:focus-visible,
+.actions button:focus-visible {
+  outline: 3px solid rgb(59 132 235 / 28%);
+  outline-offset: 2px;
+}
+
+.field small {
+  justify-self: end;
+  color: #64646a;
+  font-weight: 500;
+}
+
+.field em,
+.error {
+  color: #93000a;
+  font-size: 0.76rem;
+  font-style: normal;
+}
+
+.error,
+.success {
+  margin: 0;
+  border-radius: 0.65rem;
+  padding: 0.7rem 0.8rem;
+  font-size: 0.82rem;
+  font-weight: 650;
+}
+
+.error {
+  background: #ffdad6;
+}
+
+.success {
+  background: #d9f4df;
+  color: #155724;
+}
+
+.actions {
+  justify-content: flex-end;
+}
+
+.actions button {
+  padding: 0.7rem 1rem;
+  font-size: 0.82rem;
+  font-weight: 750;
+}
+
+.actions button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.saveButton {
+  background: #030304;
+  color: #ffffff;
+}
+
+.deleteButton {
+  background: #ffdad6;
+  color: #93000a;
+}
+
+@media (max-width: 48rem) {
+  .manager {
+    grid-template-columns: 1fr;
+  }
+
+  .twoColumns {
+    flex-direction: column;
+  }
+}
