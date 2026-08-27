@@ -1,5 +1,5 @@
 {
-  "name": "@intelis/restaurant-ui",
+  "name": "@andrezhan27/intelis-restaurant-ui",
   "version": "0.1.0",
   "description": "Shared native UI for Intelis restaurant websites and dashboards.",
   "type": "module",
@@ -51,5 +51,12 @@
   "engines": {
     "node": ">=22"
   },
-  "license": "UNLICENSED"
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andrezhan27/intelis-components.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  }
 }
