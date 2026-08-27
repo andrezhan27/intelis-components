@@ -54,7 +54,7 @@
   "license": "UNLICENSED",
   "repository": {
     "type": "git",
-    "url": "https://github.com/andrezhan27/intelis-components.git"
+    "url": "git+https://github.com/andrezhan27/intelis-components.git"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
