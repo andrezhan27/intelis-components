@@ -35,7 +35,20 @@
   --_link: #ffffff;
 }
 
+.slides {
+  display: grid;
+  min-width: 0;
+  flex: 0 1 auto;
+}
+
 .content {
+  grid-area: 1 / 1;
+  align-self: center;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-0.65rem);
+  pointer-events: none;
+  transition: opacity 420ms ease, transform 420ms cubic-bezier(0.22, 1, 0.36, 1), visibility 420ms;
   display: flex;
   min-width: 0;
   flex-wrap: wrap;
@@ -45,13 +58,50 @@
   text-align: center;
 }
 
+.content[data-active="true"] {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.controls {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 0.15rem;
+}
+
+.control {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  font-size: 1.15rem;
+}
+
+.position {
+  font-size: 0.75rem;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
 .message {
   min-width: 0;
   overflow-wrap: anywhere;
 }
 
 .link {
-  flex: 0 0 auto;
+  flex: 0 1 auto;
+  max-width: 100%;
+  overflow-wrap: anywhere;
   border-radius: 0.2rem;
   color: var(--promotion-banner-link, var(--_link));
   font-weight: 700;
@@ -61,7 +111,8 @@
 }
 
 .link:focus-visible,
-.dismiss:focus-visible {
+.dismiss:focus-visible,
+.control:focus-visible {
   outline: 2px solid currentColor;
   outline-offset: 3px;
 }
@@ -80,19 +131,36 @@
   line-height: 1;
 }
 
-.dismiss:hover {
+.dismiss:hover,
+.control:hover {
   background: rgb(255 255 255 / 14%);
 }
 
 @media (max-width: 36rem) {
   .banner {
-    align-items: flex-start;
+    flex-wrap: wrap;
+    align-items: center;
     padding-block: 0.7rem;
   }
 
+  .slides {
+    flex: 1 1 calc(100% - 3rem);
+    order: -1;
+  }
+
+  .dismiss {
+    order: -1;
+  }
+
   .content {
-    flex: 1 1 auto;
     justify-content: flex-start;
     text-align: left;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .content {
+    transition: none;
+    transform: none;
   }
 }

@@ -1,8 +1,7 @@
 import "server-only";
 
-import { fetchActivePromotion } from "./data.js";
+import { fetchPromotionSnapshot, resolvePromotionConnection } from "./data.js";
 import { PromotionBannerClient } from "./promotion-banner-client.js";
-import { PromotionBannerView } from "./promotion-banner-view.js";
 import type { PromotionBannerProps } from "./types.js";
 
 export async function PromotionBanner({
@@ -10,31 +9,23 @@ export async function PromotionBanner({
   ariaLabel = "Promotion",
   className,
   style,
+  rotationIntervalMs,
   ...fetchOptions
 }: PromotionBannerProps) {
-  const promotion = await fetchActivePromotion(restaurantId, {
-    ...fetchOptions,
-    logger: fetchOptions.logger ?? console,
-  });
-
-  if (!promotion) return null;
-
-  if (promotion.dismissible) {
-    return (
-      <PromotionBannerClient
-        ariaLabel={ariaLabel}
-        className={className}
-        promotion={promotion}
-        style={style}
-      />
-    );
-  }
+  const options = { ...fetchOptions, logger: fetchOptions.logger ?? console };
+  const connection = resolvePromotionConnection(options);
+  if (!connection || !restaurantId.trim()) return null;
+  const snapshot = await fetchPromotionSnapshot(restaurantId, options);
 
   return (
-    <PromotionBannerView
+    <PromotionBannerClient
+      key={restaurantId.trim()}
+      restaurantId={restaurantId.trim()}
+      connection={connection}
+      initialSnapshot={snapshot}
+      rotationIntervalMs={rotationIntervalMs}
       ariaLabel={ariaLabel}
       className={className}
-      promotion={promotion}
       style={style}
     />
   );

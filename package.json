@@ -25,17 +25,13 @@
   "scripts": {
     "build": "tsc -p tsconfig.build.json && cp src/promotion-banner/promotion-banner.module.css dist/promotion-banner/promotion-banner.module.css && cp src/dashboard/promotion-manager.module.css dist/dashboard/promotion-manager.module.css",
     "check": "tsc -p tsconfig.json --noEmit",
-    "test": "npm run build && node --test tests/*.test.mjs"
+    "test": "npm run build && node --test tests/*.test.mjs",
+    "preview:banners": "node tests/preview/server.mjs"
   },
   "peerDependencies": {
     "@supabase/supabase-js": ">=2.50.0 <3",
     "next": ">=16.0.0 <17",
     "react": ">=19.0.0 <20"
-  },
-  "peerDependenciesMeta": {
-    "@supabase/supabase-js": {
-      "optional": true
-    }
   },
   "dependencies": {
     "server-only": "0.0.1"

@@ -100,7 +100,10 @@ export function PromotionManager({
       .from("restaurant_promotions")
       .select(promotionColumns)
       .eq("restaurant_id", restaurantId)
-      .order("created_at", { ascending: false });
+      .order("priority", { ascending: false })
+      .order("starts_at", { ascending: false, nullsFirst: false })
+      .order("created_at", { ascending: false })
+      .order("id", { ascending: false });
 
     if (queryError) {
       setError(queryError.message);
@@ -220,7 +223,7 @@ export function PromotionManager({
               type="button"
             >
               <span>{promotion.message}</span>
-              <small>{promotion.enabled ? "Enabled" : "Disabled"}</small>
+              <small>{promotion.enabled ? "Enabled" : "Disabled"} · Priority {promotion.priority}</small>
             </button>
           ))}
         </div>
@@ -342,6 +345,7 @@ export function PromotionManager({
               value={draft.priority}
             />
             {errors.priority ? <em>{errors.priority}</em> : null}
+            <small className={styles.hint}>Higher numbers appear first. Regular banners rotate every five seconds; the highest-ranked urgent notice stays visible.</small>
           </label>
         </div>
 

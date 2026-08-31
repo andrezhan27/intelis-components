@@ -18,6 +18,19 @@ export type ActivePromotion = {
   variant: PromotionVariant;
 };
 
+export type ScheduledPromotion = ActivePromotion & { endsAt: string | null };
+
+export type PromotionSnapshot = {
+  promotions: ScheduledPromotion[];
+  serverTime: string;
+  nextChangeAt: string | null;
+};
+
+export type PromotionConnection = {
+  supabaseUrl: string;
+  supabasePublishableKey: string;
+};
+
 export type PromotionBannerStyle = CSSProperties & {
   "--promotion-banner-bg"?: string;
   "--promotion-banner-text"?: string;
@@ -32,6 +45,7 @@ export type PromotionFetchOptions = {
   revalidateSeconds?: number;
   fetchImplementation?: typeof fetch;
   logger?: Pick<Console, "error">;
+  signal?: AbortSignal;
 };
 
 export type PromotionBannerProps = PromotionFetchOptions & {
@@ -39,4 +53,6 @@ export type PromotionBannerProps = PromotionFetchOptions & {
   ariaLabel?: string;
   className?: string;
   style?: PromotionBannerStyle;
+  /** Defaults to 5000ms. Values below 3000ms are clamped for readability. */
+  rotationIntervalMs?: number;
 };
